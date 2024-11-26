@@ -29,7 +29,7 @@ all_data = []
 counter = 0
 session = requests.session()
 session.headers = headers
-for page in range(31, 54):
+for page in range(44, 54):
     url = f'https://saratov.cian.ru/cat.php?deal_type=sale&engine_version=2&object_type%5B0%5D=1&offer_type=flat&p={page}&region=4969&room2=1'
     print(f'Parsing page number {page}')
     response = session.get(url)
@@ -46,13 +46,13 @@ for page in range(31, 54):
                     pass
                 else:
                     all_data.append(data)
-                    print(all_data)
             else:
                 print(f'Error of the access to the pages: {response_of_announcement.status_code}')
     else:
         print(f'Error of the access to the site: {response.status_code}')
+    print(all_data)
     counter += 1
-    if counter == 11:
+    if counter == 2:
         df = pandas.DataFrame(all_data)
         df.to_csv(f'output{page}.csv', index=False, encoding='utf-8')
         all_data = []
